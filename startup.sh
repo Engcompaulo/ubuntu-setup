@@ -203,3 +203,23 @@ echo 'installing dbeaver'
 wget -c https://dbeaver.io/files/6.0.0/dbeaver-ce_6.0.0_amd64.deb
 sudo dpkg -i dbeaver-ce_6.0.0_amd64.deb
 sudo apt-get install -f
+
+echo 'installing nmap'
+sudo apt-get install nmap
+
+echo 'installing wireshark'
+sudo add-apt-repository ppa:wireshark-dev/stable
+sudo apt-get install wireshark
+sudo dpkg-reconfigure wireshark-common
+sudo adduser $USER wireshark
+
+echo 'installing wget'
+sudo install wget
+
+echo 'installing btscanner'
+sudo apt-get install btscanner
+
+echo 'installing metasploit'
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  chmod 755 msfinstall && \
+  ./msfinstall
