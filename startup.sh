@@ -18,14 +18,6 @@ read git_config_user_email
 git config --global user.email $git_config_user_email
 clear
 
-echo "Can I set VIM as your default GIT editor for you? (y/n)"
-read git_core_editor_to_vim
-if echo "$git_core_editor_to_vim" | grep -iq "^y" ;then
-	git config --global core.editor vim
-else
-	echo "Okay, no problem. :) Let's move on!"
-fi
-
 echo "Generating a SSH Key"
 ssh-keygen -t rsa -b 4096 -C $git_config_user_email
 ssh-add ~/.ssh/id_rsa
@@ -44,20 +36,6 @@ sudo apt-get install xclip -y
 
 echo 'installing diodon'
 sudo apt-get install diodon
-
-export alias rdr='rails db:reset'
-export alias rdm="rails db:migrate"
-export alias rds="rails db:seed"
-export alias rdd="rails db:drop"
-export alias rdc="rails db:create"
-export alias rdrb="rails db:rollback"
-export alias rgc="rails g controller"
-export alias rgm="rails g model"
-export alias rgmg="rails g migration"
-export alias cuck="rails s"
-export alias pbcopy='xclip -selection clipboard'
-export alias pbpaste='xclip -selection clipboard -o'
-source ~/.zshrc
 
 echo 'installing vim'
 sudo apt install vim -y
@@ -192,13 +170,6 @@ echo 'installing fzf'
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 
-echo 'installing brave'
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-source /etc/os-release
-echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-${UBUNTU_CODENAME}.list
-sudo apt update
-sudo apt install brave-keyring brave-browser
-
 echo 'installing dbeaver'
 wget -c https://dbeaver.io/files/6.0.0/dbeaver-ce_6.0.0_amd64.deb
 sudo dpkg -i dbeaver-ce_6.0.0_amd64.deb
@@ -223,3 +194,9 @@ echo 'installing metasploit'
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
   chmod 755 msfinstall && \
   ./msfinstall
+
+echo 'Ruby setup'
+sudo apt-get update
+
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
+sudo apt-get install ruby-full
